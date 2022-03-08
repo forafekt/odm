@@ -1,0 +1,9 @@
+{
+  "name": "odm",
+  "version": "1.0.0",
+  "description": "ODM (Object Data Mutate). Easily manipulate array objects.",
+  "main": "index.js",
+  "repository": "https://github.com/forafekt/odm.git",
+  "author": "forafekt <forafekt@gmail.com>",
+  "license": "MIT"
+}
