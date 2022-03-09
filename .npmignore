@@ -1,3 +1,7 @@
 tests
 src
 tsconfig.json
+.git
+.gitignore
+LICENSE
+README.md
