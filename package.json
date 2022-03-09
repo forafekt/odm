@@ -6,7 +6,6 @@
   "repository": "https://github.com/forafekt/odm.git",
   "author": "forafekt <forafekt@gmail.com>",
   "license": "MIT",
-
   "scripts": {
     "test": "echo \"No test specified\"",
     "test:build:ts": "ts-node ./tests/build/ts.ts",
@@ -14,5 +13,8 @@
     "test:src": "...",
     "build": "tsc",
     "checkTs": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
