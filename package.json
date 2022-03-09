@@ -1,8 +1,11 @@
 {
   "name": "@forafekt/odm",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "ODM (Object Data Mutate). Easily manipulate array objects.",
-  "main": "./src/index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "repository": "https://github.com/forafekt/odm.git",
   "author": "forafekt <forafekt@gmail.com>",
   "license": "MIT",
@@ -12,7 +15,9 @@
     "test:build:js": "node ./tests/build/js.js",
     "test:src": "...",
     "build": "tsc",
-    "checkTs": "tsc --noEmit"
+    "checkTs": "tsc --noEmit",
+    "publish:npm": "npm publish",
+    "login:npm": "npm login --registry=https://registry.npmjs.org --scope=@forafekt"
   },
   "publishConfig": {
     "access": "public"

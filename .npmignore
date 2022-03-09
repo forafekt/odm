@@ -5,3 +5,5 @@ tsconfig.json
 .gitignore
 LICENSE
 README.md
+yarn.lock
+package-lock.json

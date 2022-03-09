@@ -1,5 +1,5 @@
 # ODM (Object Data Mutate) [![NPM Version][npm-image]][npm-url]
-[npm-image]: https://img.shields.io/npm/v/live-xxx.svg
+[npm-image]: https://img.shields.io/npm/v/@forafekt/odm.svg
 [npm-url]: https://npmjs.org/package/@forafekt/odm
 
 ## Description

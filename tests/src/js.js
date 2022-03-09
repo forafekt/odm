@@ -1,3 +1,3 @@
-const odm = require("../../src");
+const odm = require("@forafekt/odm");
 odm([], {});
 // TODO
