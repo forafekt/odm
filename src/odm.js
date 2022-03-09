@@ -1,42 +1,24 @@
-const { log, stringToObject } = require("./utils");
+const { log, stringToObject, isStr, isFn, isObj } = require("./utils");
+const { Options } = require('./types');
 
-let string = new String();
-let any;
-
-let options = {
-  keyValues: { [string]: any },
+/**
+ * @type {Options}
+ */
+const options = {
+  keyValues: {},
   fromObject: false,
   insertIndex: false,
   debug: false,
 };
 
+const assign = Object.assign;
+
 /**
+ * REPO:
+ * - [GitHub](https://github.com/forafekt/odm/blob/main/README.md)
  *
- * @name odm (Object Data Mutate)
- * @param {*} row
- * @param {*} opt
- * @typedef {*} options
- * @returns Mutated array
- * @example 
- * odm(users.rows, {
-        debug: true, // log
-        fromObject: true, // takes value from initial field in users.rows
-        keyValues: {
-          id: 'user_id', // 123
-          stuff: {
-            1: data => data.wallet_address, // 0x000...
-            2: 'user_type', // 'somestring'
-            3: 'first_name', // jonny
-          },
-          z: data => data.nationality, // irish // uses data from users.rows
-          y: data => data.stuff, // use data from above objects
-            // {
-                // 1: data => data.wallet_address, // 0x000...
-                // 2: 'user_type', // 'somestring'
-                // 3: 'first_name', // jonny
-            // } 
-        },
-      });
+ * DOCS:
+ * - [odm](https://github.com/forafekt/odm/blob/main/README.md)
  */
 function odm(row = [], opt = options) {
   let { keyValues, fromObject, debug, insertIndex } = opt;
@@ -64,36 +46,36 @@ function odm(row = [], opt = options) {
     column = row[index];
     currentIndex = index;
 
-    // Fist objects loop
+    // First objects loop
     for (let key in keyValues) {
-      if (typeof keyValues[key] === "string") {
+      if (isStr(keyValues[key])) {
         if (fromObject) {
-          assignedData = Object.assign(column, {
+          assignedData = assign(column, {
             [key]: stringToObject(column, keyValues[key]),
           });
         } else {
-          assignedData = keyValues[key];
+          assignedData = { [key]: keyValues[key] };
           newKeyValues = assignedData;
         }
       }
-      if (typeof keyValues[key] === "function") {
+      if (isFn(keyValues[key])) {
         const func = (data) => keyValues[key](data);
-        assignedData = Object.assign(column, {
+        assignedData = assign(column, {
           [key]: func(column),
         });
         newKeyValues = assignedData;
       }
-      if (typeof keyValues[key] === "object") {
-        assignedData = Object.assign(column, {
+      if (isObj(keyValues[key])) {
+        assignedData = assign(column, {
           [key]: keyValues[key],
         });
         newKeyValues = assignedData;
 
         // Nested objects loop
         for (let subKey in keyValues[key]) {
-          if (typeof keyValues[key][subKey] === "string") {
+          if (isStr(keyValues[key][subKey])) {
             if (fromObject) {
-              assignedNestedData = Object.assign(column, {
+              assignedNestedData = assign(column, {
                 [key]: {
                   ...column[key],
                   [subKey]: stringToObject(column, keyValues[key][subKey]),
@@ -106,9 +88,9 @@ function odm(row = [], opt = options) {
               newKeyValues = assignedNestedData;
             }
           }
-          if (typeof keyValues[key][subKey] === "function") {
+          if (isFn(keyValues[key][subKey])) {
             const func = (data) => keyValues[key][subKey](data);
-            assignedNestedData = Object.assign(column, {
+            assignedNestedData = assign(column, {
               [key]: {
                 ...column[key],
                 [subKey]: func(column),
@@ -116,8 +98,8 @@ function odm(row = [], opt = options) {
             });
             newKeyValues = assignedNestedData;
           }
-          if (typeof keyValues[key][subKey] === "object") {
-            assignedNestedData = Object.assign(column, {
+          if (isObj(keyValues[key][subKey])) {
+            assignedNestedData = assign(column, {
               [key]: {
                 ...column[key],
                 [subKey]: keyValues[key][subKey],

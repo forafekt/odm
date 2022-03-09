@@ -1,9 +1,18 @@
 {
-  "name": "odm",
+  "name": "@forafekt/odm",
   "version": "1.0.0",
   "description": "ODM (Object Data Mutate). Easily manipulate array objects.",
-  "main": "index.js",
+  "main": "./src/odm.js",
   "repository": "https://github.com/forafekt/odm.git",
   "author": "forafekt <forafekt@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+
+  "scripts": {
+    "test": "echo \"No test specified\"",
+    "test:build:ts": "ts-node ./tests/build/ts.ts",
+    "test:build:js": "node ./tests/build/js.js",
+    "test:src": "...",
+    "build": "tsc",
+    "checkTs": "tsc --noEmit"
+  }
 }
